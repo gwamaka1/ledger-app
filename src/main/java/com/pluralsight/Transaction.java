@@ -1,4 +1,4 @@
-package com.pluarlsight;
+package com.pluralsight;
 
 public class Transaction {
 }
