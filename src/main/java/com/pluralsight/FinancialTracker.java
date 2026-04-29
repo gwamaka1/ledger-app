@@ -163,17 +163,23 @@ public class FinancialTracker {
             System.out.println("Can't have negative amounts");
             return;
         }
-
-        // Now build the pipe-delimited string
-        StringBuilder sb = new StringBuilder();
-        for (char c : payment.toCharArray()) {
-            if (c == ' ') {
-                sb.append('|');
-            } else {
-                sb.append(c);
-            }
+        String[] parts = payment.split(" ");
+        double amount;
+        try{
+            amount = Double.parseDouble(parts[parts.length - 1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered");
+            return;
         }
+        parts[parts.length-1] = String.valueOf(-amount);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i< parts.length; i++){
+            sb.append(parts[i]);
+            if(i < parts.length -1){
+                sb.append('|');
+            }
 
+        }
         // Write to file once, outside the loop, with append mode on
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             bw.write(sb.toString());
