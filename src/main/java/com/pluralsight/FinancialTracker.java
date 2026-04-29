@@ -121,33 +121,50 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
-            System.out.println("Please give the date+time in this format yyyy-MM-dd HH:mm:ss along with the description, vendor and amount");
-            String deposit = scanner.nextLine();
+        System.out.print("Enter date and time (yyyy-MM-dd HH:mm:ss): ");
+        String dateTime = scanner.nextLine().trim();
 
-            // Validate first before doing anything else
-            if (deposit.contains("-")) {
-                System.out.println("Can't deposit negative amounts");
-                return;
-            }
-
-            // Now build the pipe-delimited string
-            StringBuilder sb = new StringBuilder();
-            for (char c : deposit.toCharArray()) {
-                if (c == ' ') {
-                    sb.append('|');
-                } else {
-                    sb.append(c);
-                }
-            }
-
-            // Write to file once, outside the loop, with append mode on
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-                bw.write(sb.toString());
-                bw.newLine();
-            } catch (IOException e) {
-                System.err.println("Error writing to the log file: " + e.getMessage());
-            }
+        // Split the single datetime string into date and time
+        String[] dateTimeParts = dateTime.split(" ");
+        if (dateTimeParts.length != 2) {
+            System.out.println("Invalid date+time format");
+            return;
         }
+        String date = dateTimeParts[0];
+        String time = dateTimeParts[1];
+
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine().trim();
+
+        System.out.print("Enter vendor: ");
+        String vendor = scanner.nextLine().trim();
+
+        System.out.print("Enter amount: ");
+        String amountStr = scanner.nextLine().trim();
+
+        if (amountStr.contains("-")) {
+            System.out.println("Can't have a negative deposit");
+            return;
+        }
+
+        // Validate amount is actually a number
+        double amount;
+        try {
+            amount = Double.parseDouble(amountStr);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered");
+            return;
+        }
+
+        String result = date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            bw.write(result);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Error writing to the log file: " + e.getMessage());
+        }
+    }
 
     /**
      * Same prompts as addDeposit.
@@ -155,34 +172,43 @@ public class FinancialTracker {
      * then converted to a negative amount before storing.
      */
     private static void addPayment(Scanner scanner) {
-        System.out.println("Please give the date+time in this format yyyy-MM-dd HH:mm:ss along with the description, vendor and amount");
-        String payment = scanner.nextLine();
+        System.out.print("Enter date and time (yyyy-MM-dd HH:mm:ss): ");
+        String dateTime = scanner.nextLine().trim();
 
-        // Validate first before doing anything else
-        if (payment.contains("-")) {
-            System.out.println("Can't have negative amounts");
+        String[] dateTimeParts = dateTime.split(" ");
+        if (dateTimeParts.length != 2) {
+            System.out.println("Invalid date+time format");
             return;
         }
-        String[] parts = payment.split(" ");
+        String date = dateTimeParts[0];
+        String time = dateTimeParts[1];
+
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine().trim();
+
+        System.out.print("Enter vendor: ");
+        String vendor = scanner.nextLine().trim();
+
+        System.out.print("Enter amount: ");
+        String amountStr = scanner.nextLine().trim();
+
+        if (amountStr.contains("-")) {
+            System.out.println("Please enter a positive amount, it will be stored as negative");
+            return;
+        }
+
         double amount;
-        try{
-            amount = Double.parseDouble(parts[parts.length - 1]);
+        try {
+            amount = Double.parseDouble(amountStr);
         } catch (NumberFormatException e) {
             System.out.println("Invalid amount entered");
             return;
         }
-        parts[parts.length-1] = String.valueOf(-amount);
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i< parts.length; i++){
-            sb.append(parts[i]);
-            if(i < parts.length -1){
-                sb.append('|');
-            }
 
-        }
-        // Write to file once, outside the loop, with append mode on
+        String result = date + "|" + time + "|" + description + "|" + vendor + "|" + (-amount);
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-            bw.write(sb.toString());
+            bw.write(result);
             bw.newLine();
         } catch (IOException e) {
             System.err.println("Error writing to the log file: " + e.getMessage());
