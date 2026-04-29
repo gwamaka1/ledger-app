@@ -121,44 +121,33 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
-        System.out.println("please give the date+time in this format yyyy-MM-dd HH:mm:ss along withe the description, vendor and amount");
-        String deposit = scanner.nextLine();
-        if (deposit.contains("-")) {
-            System.out.println("Can't deposit negative amounts");
-            return;
-        }
-        StringBuilder sb = new StringBuilder();
-        for(char c:deposit.toCharArray()){
-            if (c == ' '){
-                sb.append('|');
+            System.out.println("Please give the date+time in this format yyyy-MM-dd HH:mm:ss along with the description, vendor and amount");
+            String deposit = scanner.nextLine();
 
-            }
-            else{
-                sb.append(c);
+            // Validate first before doing anything else
+            if (deposit.contains("-")) {
+                System.out.println("Can't deposit negative amounts");
+                return;
             }
 
+            // Now build the pipe-delimited string
+            StringBuilder sb = new StringBuilder();
+            for (char c : deposit.toCharArray()) {
+                if (c == ' ') {
+                    sb.append('|');
+                } else {
+                    sb.append(c);
+                }
             }
-          try{
-                BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true));
+
+            // Write to file once, outside the loop, with append mode on
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
                 bw.write(sb.toString());
                 bw.newLine();
-                bw.close();
-
-
-        } catch (IOException e) {
-              System.err.println("Error writing to the log file: " + e.getMessage());
-          }
+            } catch (IOException e) {
+                System.err.println("Error writing to the log file: " + e.getMessage());
+            }
         }
-
-
-        
-
-
-
-
-
-
-    }
 
     /**
      * Same prompts as addDeposit.
@@ -166,7 +155,32 @@ public class FinancialTracker {
      * then converted to a negative amount before storing.
      */
     private static void addPayment(Scanner scanner) {
-        // TODO
+        System.out.println("Please give the date+time in this format yyyy-MM-dd HH:mm:ss along with the description, vendor and amount");
+        String payment = scanner.nextLine();
+
+        // Validate first before doing anything else
+        if (payment.contains("-")) {
+            System.out.println("Can't have negative amounts");
+            return;
+        }
+
+        // Now build the pipe-delimited string
+        StringBuilder sb = new StringBuilder();
+        for (char c : payment.toCharArray()) {
+            if (c == ' ') {
+                sb.append('|');
+            } else {
+                sb.append(c);
+            }
+        }
+
+        // Write to file once, outside the loop, with append mode on
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            bw.write(sb.toString());
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Error writing to the log file: " + e.getMessage());
+        }
     }
 
     /* ------------------------------------------------------------------
