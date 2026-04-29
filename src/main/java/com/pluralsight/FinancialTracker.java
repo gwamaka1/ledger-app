@@ -121,8 +121,43 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
+        System.out.println("please give the date+time in this format yyyy-MM-dd HH:mm:ss along withe the description, vendor and amount");
+        String deposit = scanner.nextLine();
+        if (deposit.contains("-")) {
+            System.out.println("Can't deposit negative amounts");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(char c:deposit.toCharArray()){
+            if (c == ' '){
+                sb.append('|');
 
-        // TODO
+            }
+            else{
+                sb.append(c);
+            }
+
+            }
+          try{
+                BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true));
+                bw.write(sb.toString());
+                bw.newLine();
+                bw.close();
+
+
+        } catch (IOException e) {
+              System.err.println("Error writing to the log file: " + e.getMessage());
+          }
+        }
+
+
+        
+
+
+
+
+
+
     }
 
     /**
