@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import java.io.File;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -71,6 +71,31 @@ public class FinancialTracker {
      * • Each line looks like: date|time|description|vendor|amount
      */
     public static void loadTransactions(String fileName) {
+       try{
+        if (fileName == null){
+            System.out.println("file doesnt exist.... will creat a new one");
+            BufferedWriter bf = new BufferedWriter( new FileWriter("new_transaction.csv"));
+
+
+        }
+        else{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String line;
+            while((line = br.readLine()) != null){
+                String [] parts = line.split("\\|");
+                String date = parts[0];
+                String time = parts[1];
+                String description = parts[2];
+                String vendor = parts[3];
+                double transaction = Double.parseDouble(parts[4]);
+                transactions.add(new Transaction(date,time,description,vendor,transaction));
+
+            }
+        }
+       } catch (Exception e) {
+           throw new RuntimeException(e);
+       }
+
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
