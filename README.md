@@ -8,9 +8,10 @@ The ledger app works as a banking app, being able to make deposits, make payment
 
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
-
+- As a customer, i want to be able to make and record my deposits , so that im able to track the money coming into my account
+- As a customer, I want to be able to make and record payment on my ledger app  so that im able to track the payments leaving my account from my purchases.
+- As a customer, i want to be able to custom search by vendor so ican see when speiifcially i made a purchese from that vendor.
+- As a customer, i want to be able to select date time frames, so that i can see what i purchases spreifclaly during one month or a year.
 ## Setup
 
 Instructions on how to set up and run the project using IntelliJ IDEA.
