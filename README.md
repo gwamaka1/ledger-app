@@ -2,7 +2,7 @@
 
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+The ledger app works as a banking app, being able to make deposits, make payment and being able to see your bank statmenst of both tranactions. the purpose of this is to make these transactios easier for customers to make payments on time and being able to easily track their transaction history. the mian functionality of this app is to make mpayments and proesses deposists  with the goal to solve all of this through the ease within this one app.
 
 ## User Stories
 
