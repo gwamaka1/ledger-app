@@ -71,26 +71,35 @@ public class FinancialTracker {
      * • Each line looks like: date|time|description|vendor|amount
      */
     public static void loadTransactions(String fileName) {
+        // create file if it doesnt exist
        try{
-        if (fileName == null){
-            System.out.println("file doesnt exist.... will creat a new one");
-            BufferedWriter bf = new BufferedWriter( new FileWriter("new_transaction.csv"));
+           File file = new File(fileName);
+        if (!file.exists()){
+            System.out.println("file doesnt exist.... will create a new one");
+            fileName = "new_transaction.csv";
+            BufferedWriter bf = new BufferedWriter( new FileWriter(fileName));
+
+
 
 
         }
-        else{
+        // read file once transactions have been made
+           // add them to the arraylist transaction object
+
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             while((line = br.readLine()) != null){
                 String [] parts = line.split("\\|");
-                String date = parts[0];
-                String time = parts[1];
+                String d = parts[0];
+                LocalDate date = LocalDate.parse(d, DATE_FMT);
+                String t = parts[1];
+                LocalTime time = LocalTime.parse(t,TIME_FMT);
                 String description = parts[2];
                 String vendor = parts[3];
-                double transaction = Double.parseDouble(parts[4]);
-                transactions.add(new Transaction(date,time,description,vendor,transaction));
+                double amount = Double.parseDouble(parts[4]);
+                transactions.add(new Transaction(date,time,description,vendor,amount));
 
-            }
+
         }
        } catch (Exception e) {
            throw new RuntimeException(e);
@@ -112,6 +121,7 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
+
         // TODO
     }
 
