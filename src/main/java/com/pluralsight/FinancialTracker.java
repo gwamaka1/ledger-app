@@ -308,7 +308,9 @@ public class FinancialTracker {
                                 LocalDate.now().minusYears(1).lengthOfYear())
                 );
                 }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "5" -> {  System.out.print("Enter vendor name: ");
+                    String vendor = scanner.nextLine().trim();
+                    filterTransactionsByVendor(vendor); }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
@@ -320,28 +322,82 @@ public class FinancialTracker {
        Reporting helpers
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
-        // TODO – iterate transactions, print those within the range
+        System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        for (Transaction t : transactions) {
+            if (!t.getDate().isBefore(start) && !t.getDate().isAfter(end)) {
+                System.out.println(t);
+            }
+        }
+
     }
 
     private static void filterTransactionsByVendor(String vendor) {
-        // TODO – iterate transactions, print those with matching vendor
+        System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        for (Transaction t : transactions) {
+            if (vendor.equalsIgnoreCase(t.getVendor())) {
+                System.out.println(t);
+            }
+        }
+
     }
 
     private static void customSearch(Scanner scanner) {
-        // TODO – prompt for any combination of date range, description,
-        //        vendor, and exact amount, then display matches
+        System.out.print("Start date (yyyy-MM-dd) or blank to skip: ");
+        LocalDate start = parseDate(scanner.nextLine());
+
+        System.out.print("End date (yyyy-MM-dd) or blank to skip: ");
+        LocalDate end = parseDate(scanner.nextLine());
+
+        System.out.print("Description or blank to skip: ");
+        String description = scanner.nextLine().trim();
+
+        System.out.print("Vendor or blank to skip: ");
+        String vendor = scanner.nextLine().trim();
+
+        System.out.print("Amount or blank to skip: ");
+        Double amount = parseDouble(scanner.nextLine());
+
+        System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("-".repeat(100));
+
+        boolean found = false;
+        for (Transaction t : transactions) {
+            if (start != null && t.getDate().isBefore(start)) continue;
+            if (end != null && t.getDate().isAfter(end)) continue;
+            if (!description.isEmpty() && !t.getDescription().toLowerCase().contains(description.toLowerCase())) continue;
+            if (!vendor.isEmpty() && !t.getVendor().toLowerCase().contains(vendor.toLowerCase())) continue;
+            if (amount != null && t.getAmount() != amount) continue;
+
+            System.out.println(t);
+            found = true;
+        }
+
+        if (!found) {
+            System.out.println("No transactions found matching your search");
+        }
     }
 
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */
     private static LocalDate parseDate(String s) {
-        /* TODO – return LocalDate or null */
-        return null;
+        if (s == null || s.trim().isEmpty()) return null;
+        try {
+            return LocalDate.parse(s.trim(), DATE_FMT);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static Double parseDouble(String s) {
-        /* TODO – return Double   or null */
-        return null;
+        if (s == null || s.trim().isEmpty()) return null;
+        try {
+            return Double.parseDouble(s.trim());
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
