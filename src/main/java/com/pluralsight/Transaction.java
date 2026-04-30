@@ -2,13 +2,29 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
+    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     private LocalDate date;
     private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
+
+    @Override
+    public String toString() {
+        return String.format("%-12s | %-10s | %-35s | %-25s | %10.2f",
+                date.format(DATE_FMT),
+                time.format(TIME_FMT),
+                description,
+                vendor,
+                amount);
+
+
+    }
 
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.time = time;
@@ -58,4 +74,5 @@ public class Transaction {
         this.date = date;
     }
 }
+
 
