@@ -1,8 +1,10 @@
 # Project Title
+# Akiba ledger App
 
 ## Description of the Project
 
-The ledger app works as a banking app, being able to make deposits, make payment and being able to see your bank statmenst of both tranactions. the purpose of this is to make these transactios easier for customers to make payments on time and being able to easily track their transaction history. the mian functionality of this app is to make mpayments and proesses deposists  with the goal to solve all of this through the ease within this one app.
+Akiba Ledger is a personal finance tracking application that allows users to record and manage their financial activity in one place. Users can log deposits and payments directly through a simple menu-driven interface, with all transactions automatically saved and loaded from a file so no data is ever lost.
+The app's ledger feature gives users a clear, formatted view of their full transaction history, with the ability to filter by deposits, payments, date ranges, vendor, or custom search criteria. The goal of Akiba Ledger is to make personal finance management straightforward.
 
 ## User Stories
 
@@ -13,6 +15,8 @@ List the user stories that guided the development of your application. Format th
 - As the owner, I want to create a menu screen so it's easier to navigate throughout the app and make/ record the transactions.
 - As a customer, i want to be able to custom search by vendor so ican see when speiifcially i made a purchese from that vendor.
 - As a customer, i want to be able to select date time frames, so that i can see what i purchases spreifclaly during one month or a year.
+- As a customer, I want to view all my transactions in a formatted ledger, so that I can see my full financial history in one place.
+- As a customer, I want to search using a combination of filters like date range, vendor, and amount, so that I can narrow down results as specifically as I need.
 ## Setup
 
 Instructions on how to set up and run the project using IntelliJ IDEA.
@@ -37,18 +41,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 - Java: Mention the version you are using.
 - Any additional libraries or frameworks used in the project.
 
-## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-
-![Application Screenshot](path/to/your/screenshot.png)
-
-## Future Work
-
-Outline potential future enhancements or functionalities you might consider adding:
-
-- Additional feature to be developed.
-- Improvement of current functionalities.
 
 ## Resources
 
@@ -63,8 +56,3 @@ List resources such as tutorials, articles, or documentation that helped you dur
 
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
-
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
- 
