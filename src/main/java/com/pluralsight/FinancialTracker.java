@@ -247,7 +247,7 @@ public class FinancialTracker {
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
     private static void displayLedger() {
-        System.out.printf("%s | %s | %s | %s | %s",
+        System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
                 "Date", "Time", "Description", "Vendor", "Amount");
         for (Transaction t : transactions) {
             System.out.println(t);
