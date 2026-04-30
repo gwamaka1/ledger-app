@@ -36,17 +36,30 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
-
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+        // Splash screen
+        System.out.println("*".repeat(60));
+        System.out.println("*" + " ".repeat(58) + "*");
+        System.out.println("*" + " ".repeat(18) + "  AKIBA LEDGER  " + " ".repeat(24) + "*");
+        System.out.println("*" + " ".repeat(10) + "Your Anime Merch Finance Tracker" + " ".repeat(16) + "*");
+        System.out.println("*" + " ".repeat(58) + "*");
+        System.out.println("*".repeat(60));
+        System.out.println();
+        System.out.println("  Tracking sales of: Figures | Manga | Apparel | Imports");
+        System.out.println();
+
         while (running) {
-            System.out.println("Welcome to TransactionApp");
-            System.out.println("Choose an option:");
-            System.out.println("D) Add Deposit");
-            System.out.println("P) Make Payment (Debit)");
-            System.out.println("L) Ledger");
-            System.out.println("X) Exit");
+            System.out.println("=".repeat(60));
+            System.out.println("            AKIBA LEDGER — MAIN MENU");
+            System.out.println("=".repeat(60));
+            System.out.println("  D) Add Deposit   (Sale / Income)");
+            System.out.println("  P) Make Payment  (Restock / Expense)");
+            System.out.println("  L) Ledger");
+            System.out.println("  X) Exit");
+            System.out.println("=".repeat(60));
+            System.out.print("  Choose an option: ");
 
             String input = scanner.nextLine().trim();
 
@@ -76,7 +89,6 @@ public class FinancialTracker {
            File file = new File(fileName);
         if (!file.exists()){
             System.out.println("file doesnt exist.... will create a new one");
-            fileName = "new_transaction.csv";
             BufferedWriter bf = new BufferedWriter( new FileWriter(fileName));
 
 
@@ -260,15 +272,18 @@ public class FinancialTracker {
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
     private static void displayLedger() {
-        // Print header row and separator
+        System.out.println();
+        System.out.println("=".repeat(100));
+        System.out.println("                            AKIBA LEDGER — ALL TRANSACTIONS  ");
+        System.out.println("=".repeat(100));
         System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
-                "Date", "Time", "Description", "Vendor", "Amount");
+                "Date", "Time", "Item / Description", "Vendor / Supplier", "Amount ($)");
         System.out.println("-".repeat(100));
-
-        // Print all transactions
         for (Transaction t : transactions) {
             System.out.println(t);
         }
+        System.out.println("=".repeat(100));
+        System.out.println();
     }
 
     private static void displayDeposits() {
