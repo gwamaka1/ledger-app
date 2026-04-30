@@ -34,11 +34,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public double getTransaction() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setTransaction(double transaction) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -46,7 +46,7 @@ public class Transaction {
         return vendor;
     }
 
-    public void setVendor(String companyName) {
+    public void setVendor(String vendor) {
         this.vendor = vendor;
     }
 
