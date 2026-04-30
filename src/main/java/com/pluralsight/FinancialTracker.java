@@ -257,9 +257,25 @@ public class FinancialTracker {
 
     }
 
-    private static void displayDeposits() { /* TODO – only amount > 0               */ }
+    private static void displayDeposits() {
+        System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
+                "Date", "Time", "Description", "Vendor", "Amount");
+        for (Transaction t : transactions) {
+            if( t.getAmount() > 0){
+                System.out.println(t);
+            }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+        }
+    }
+
+    private static void displayPayments() { System.out.printf("%-12s | %-10s | %-35s | %-25s | %10s%n",
+            "Date", "Time", "Description", "Vendor", "Amount");
+        for (Transaction t : transactions) {
+            if( t.getAmount() < 0){
+                System.out.println(t);
+            }
+
+        } }
 
     /* ------------------------------------------------------------------
        Reports menu
