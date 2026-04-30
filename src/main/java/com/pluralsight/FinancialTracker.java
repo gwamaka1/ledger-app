@@ -89,6 +89,7 @@ public class FinancialTracker {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             while((line = br.readLine()) != null){
+                if (line.trim().isEmpty()) continue;
                 String [] parts = line.split("\\|");
                 String d = parts[0];
                 LocalDate date = LocalDate.parse(d, DATE_FMT);
@@ -156,7 +157,7 @@ public class FinancialTracker {
             return;
         }
 
-        String result = date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+        String result = date + "|" + time + "|" + description + "|" + vendor + "|" +"+"+ (amount);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             bw.write(result);
@@ -245,7 +246,10 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format */ }
+    private static void displayLedger() {
+
+
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
