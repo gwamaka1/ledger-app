@@ -157,7 +157,7 @@ public class FinancialTracker {
             return;
         }
 
-        String result = date + "|" + time + "|" + description + "|" + vendor + "|" +"+"+ (amount);
+        String result = date + "|" + time + "|" + description + "|" + vendor + "|" + (amount);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             bw.write(result);
